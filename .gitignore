@@ -1,2 +1,78 @@
-.ipynb_checkpoints/
-.env
+# Python bytecode
+
+**pycache**/
+\*.py\[cod]
+\*.pyo
+\*.pyd
+
+# Jupyter Notebooks
+
+.ipynb\_checkpoints/
+\*.ipynb
+
+# Virtual Environment
+
+env/
+venv/
+ENV/
+
+# Logs and output files
+
+\*.log
+\*.out
+\*.txt
+
+# OS generated files
+
+.DS\_Store
+Thumbs.db
+
+# Temporary files
+
+\*.temp
+\*.tmp
+
+# IDE Specific
+
+.vscode/
+.idea/
+\*.swp
+
+# Build
+
+build/
+dist/
+\*.egg-info/
+
+# Testing
+
+.pytest\_cache/
+.coverage
+.tox/
+
+# Package files
+
+\*.tar.gz
+\*.zip
+
+# Database
+
+\*.sqlite3
+
+# Secrets
+
+\*.env
+\*.key
+\*.pem
+
+# Other nonsense
+
+\*.bak
+\*.old
+\*.orig
+\*.rej
+\*.swo
+\*.swp
+\*.swn
+\*.swm
+\*.swh
