@@ -10,8 +10,8 @@ This repository contains my implementation of GPT from scratch using PyTorch, in
 
 ## Progress
 
-* [ ] Data processing and tokenization
-* [ ] Transformer architecture implementation
+* [*] Data processing and tokenization
+* [*] Transformer architecture implementation
 * [ ] Training loop and optimization
 * [ ] Testing and text generation
 * [ ] Classification using models
@@ -21,4 +21,5 @@ This repository contains my implementation of GPT from scratch using PyTorch, in
 
 ### References
 
-* [Andrej Karpathy - GPT from Scratch Series](https://www.youtube.com/playlist?list=PLyqSpQzTE6M9gCgGiBFPs3Svr0_yO4S4u)
+* This all implementation is based on the **llm from scratch** book from sebastian Resbescka (The best book for learning llm, and implementing it). I would highly recommend if you want to learn about llms and implenting it.
+* Also inspired from [Andrej Karpathy - GPT from Scratch Series](https://www.youtube.com/playlist?list=PLyqSpQzTE6M9gCgGiBFPs3Svr0_yO4S4u)

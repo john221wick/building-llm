@@ -79,3 +79,6 @@ dist/
 \*.swn
 \*.swm
 \*.swh
+
+
+.ropeproject/
