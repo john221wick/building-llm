@@ -1,6 +1,6 @@
 # GPT Implementation from Scratch
 
-This repository contains my implementation of GPT from scratch using PyTorch, inspired by Andrej Karpathy's series on building GPT.
+This repository contains my implementation of GPT from scratch using PyTorch, inspired by **llm from scratch** book from sebastian Resbescka (The best book for learning about llm and its implementation) also from Andrej Karpathy's series on building GPT.
 
 ## Objectives
 
