@@ -10,8 +10,8 @@ This repository contains my implementation of GPT from scratch using PyTorch, in
 
 ## Progress
 
-* [*] Data processing and tokenization
-* [*] Transformer architecture implementation
+* [x] Data processing and tokenization
+* [x] Transformer architecture implementation
 * [ ] Training loop and optimization
 * [ ] Testing and text generation
 * [ ] Classification using models
