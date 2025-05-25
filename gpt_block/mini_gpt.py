@@ -1,14 +1,17 @@
 import torch
 import torch.nn as nn
-
-from attention_mechanism.MultiheadAttention import MultiHeadAttention
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from gpt_block.transformer_block import TransformerBlock, LayerNorm
+from gpt_block.utils import calcSize, testFunc, testOurModel
 
 cfg = {
     "vocab_size": 50257,    # Vocabulary size
     "context_length": 1024, # Context length
     "emb_dim": 768,         # Embedding dimension
-    "n_heads": 12,          # Number of attention heads
-    "n_layers": 12,         # Number of layers
+    "n_heads": 4,          # Number of attention heads
+    "n_layers": 4,         # Number of layers
     "drop_rate": 0.1,       # Dropout rate
     "qkv_bias": False       # Query-Key-Value bias
 }
@@ -17,11 +20,37 @@ cfg = {
 class GPTmodel(nn.Module):
     def __init__(self, cfg):
         super().__init__()
-        # tok_embeddings, positional_embedding, dropout
         self.tok_embedding = nn.Embedding(cfg["vocab_size"], cfg["emb_dim"])
         self.pos_embedding = nn.Embedding(cfg["context_length"], cfg["emb_dim"])
-        self.dropout = cfg["drop_rate"]
+        self.dropout = nn.Dropout(cfg["drop_rate"])
+        self.trf_blocks = nn.Sequential(
+            *[TransformerBlock(cfg) for _ in range(cfg["n_layers"])])
+
+        self.final_norm = LayerNorm(cfg["emb_dim"])
+        self.out_head = nn.Linear(
+            cfg["emb_dim"], cfg["vocab_size"], bias=False
+        )
 
 
+    def forward(self, in_idx):
+        batch_size, seq_len = in_idx.shape
+        tok_embeds = self.tok_embedding(in_idx)
+        pos_embeds = self.pos_embedding(torch.arange(seq_len, device=in_idx.device))
+        x = tok_embeds + pos_embeds
 
-    def forward(self, x):
+        x = self.dropout(x)
+
+        x = self.trf_blocks(x)
+        x = self.final_norm(x)
+        logits = self.out_head(x)
+        return logits
+
+model = GPTmodel(cfg)
+
+# testing the model
+testFunc(model = model)
+# Calculating the size of the model
+calcSize(model = model)
+
+# For testing our gpt model
+testOurModel(model = model, context_size = cfg["context_length"])

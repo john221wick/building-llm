@@ -1,4 +1,7 @@
-from ..attention_mechanism.MultiheadAttention import MultiHeadAttention
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from attention_mechanism.MultiheadAttention import MultiHeadAttention
 import torch.nn as nn
 import torch
 
@@ -41,7 +44,7 @@ class TransformerBlock(nn.Module):
     def __init__(self, cfg):
         super().__init__()
         self.attn = MultiHeadAttention(
-        d_in = cfg["emd_dim"],
+        d_in = cfg["emb_dim"],
         d_out = cfg["emb_dim"],
         context_length = cfg["context_length"],
         num_heads = cfg["n_heads"],
@@ -54,22 +57,21 @@ class TransformerBlock(nn.Module):
         self.norm2 = LayerNorm(cfg["emb_dim"])
         self.drop_shortcut = nn.Dropout(cfg["drop_rate"])
 
-        def forward(self, x):
+    def forward(self, x):
 
-            shortcut = x
-            x = self.norm1(x)
-            x = self.attn(x)
-            x = self.drop_shortcut(x)
-            x = x+shortcut
+        shortcut = x
+        x = self.norm1(x)
+        x = self.attn(x)
+        x = self.drop_shortcut(x)
+        x = x+shortcut
 
+        shortcut = x
+        x = self.norm1(x)
+        x = self.attn(x)
+        x = self.drop_shortcut(x)
+        x = x+shortcut
 
-            shortcut = x
-            x = self.norm1(x)
-            x = self.attn(x)
-            x = self.drop_shortcut(x)
-            x = x+shortcut
-
-            return x
+        return x
 
 
 
@@ -83,9 +85,9 @@ cfg = {
     "qkv_bias": False       # Query-Key-Value bias
 }
 
-x = torch.rnad(2, 4, 768)
-block = TransformerBlock(cfg)
-output = block(x)
+x = torch.rand(2, 4, 768)
+# block = TransformerBlock(cfg)
+# output = block(x)
 
-print("input shape : ", x.shape)
-print("output shape : ", output.shape)
+# print("input shape : ", x.shape)
+# print("output shape : ", output.shape)
