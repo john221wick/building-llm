@@ -13,6 +13,10 @@ class simpletokenizer:
         encoded_text = [self.str_to_int[s] for s in preprocessed]
         return encoded_text
 
+    def decode(self, encoded_val):
+
+
+
 text1 = "how am i"
 tokenizer = simpletokenizer(vocab)
 val = tokenizer.encode(text1)
