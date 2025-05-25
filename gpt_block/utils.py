@@ -70,10 +70,10 @@ def testOurModel(model, context_size):
     start_context = "Hello, I am"
 
     encoded = tokenizer.encode(start_context)
-    print("encoded:", encoded)
+    #print("encoded:", encoded)
 
     encoded_tensor = torch.tensor(encoded).unsqueeze(0)
-    print("encoded_tensor.shape:", encoded_tensor.shape)
+    #print("encoded_tensor.shape:", encoded_tensor.shape)
 
     model.eval() # disable dropout
 

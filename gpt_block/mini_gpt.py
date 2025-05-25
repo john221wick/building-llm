@@ -51,6 +51,5 @@ model = GPTmodel(cfg)
 testFunc(model = model)
 # Calculating the size of the model
 calcSize(model = model)
-
 # For testing our gpt model
 testOurModel(model = model, context_size = cfg["context_length"])

@@ -40,21 +40,21 @@ class MultiHeadAttention(nn.Module):
         return self.out_proj(context_vec)
 
 # For ensuring the values match with the text
-torch.manual_seed(123)
+# torch.manual_seed(123)
 
-batch = torch.tensor([[
-    [1.0, 2.0, 3.0, 4.0],
-    [5.0, 6.0, 7.0, 8.0],
-    [9.0, 0.0, 1.0, 2.0],
-    [3.0, 4.0, 5.0, 6.0]
-]])
+# batch = torch.tensor([[
+#     [1.0, 2.0, 3.0, 4.0],
+#     [5.0, 6.0, 7.0, 8.0],
+#     [9.0, 0.0, 1.0, 2.0],
+#     [3.0, 4.0, 5.0, 6.0]
+# ]])
 
-batch_size, context_length, d_in = batch.shape
-d_out = 4  # Can be 4, 8, etc. Must be divisible by num_heads
-num_heads = 2
+# batch_size, context_length, d_in = batch.shape
+# d_out = 4  # Can be 4, 8, etc. Must be divisible by num_heads
+# num_heads = 2
 
-mha = MultiHeadAttention(d_in, d_out, context_length, dropout=0.0, num_heads=num_heads)
-context_vecs = mha(batch)
+# mha = MultiHeadAttention(d_in, d_out, context_length, dropout=0.0, num_heads=num_heads)
+# context_vecs = mha(batch)
 
-print("context_vecs.shape:", context_vecs.shape)
-print(context_vecs)
+# print("context_vecs.shape:", context_vecs.shape)
+# print(context_vecs)
