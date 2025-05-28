@@ -1,6 +1,10 @@
 import os
 script_dir = os.path.dirname(os.path.abspath(__file__))
 data_path = os.path.join(script_dir, '..', 'data', 'the-verdict.txt')
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import torch
 from torch.utils.data import Dataset, DataLoader
 import tiktoken
@@ -26,7 +30,7 @@ class GPTDataset(Dataset):
 with open(data_path, "r", encoding="utf-8") as f:
     raw_text = f.read()
 
-def create_dataloader_v1(text = raw_text, batch_size = 4, max = 256, stride = 128, shuffle = False, num_workers=0):
+def create_dataloader_v1(text = raw_text, batch_size = 4, max = 256, stride = 128, shuffle = False, num_workers=0,drop_last=False):
     tokenizer = tiktoken.get_encoding("gpt2")
     dataset = GPTDataset(text, tokenizer, max, stride)
     dataloader = DataLoader(
@@ -38,9 +42,9 @@ def create_dataloader_v1(text = raw_text, batch_size = 4, max = 256, stride = 12
     return dataloader
 
 
-dataloader = create_dataloader_v1(text=raw_text, batch_size=1, max=4, stride=1)
-data_iter = iter(dataloader)
-for i in range(0, 4):
-    batches = next(data_iter)
-    print(f'{i}th batch is --------')
-    print(batches)
+# dataloader = create_dataloader_v1(text=raw_text, batch_size=1, max=4, stride=1)
+# data_iter = iter(dataloader)
+# for i in range(0, 4):
+#     batches = next(data_iter)
+#     print(f'{i}th batch is --------')
+#     print(batches)
