@@ -5,17 +5,9 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gpt_block.transformer_block import TransformerBlock, LayerNorm
 from gpt_block.utils import calcSize, testFunc, testOurModel
+from configuration.config import GPT_CONFIGS
 
-cfg = {
-    "vocab_size": 50257,    # Vocabulary size
-    "context_length": 1024, # Context length
-    "emb_dim": 768,         # Embedding dimension
-    "n_heads": 4,          # Number of attention heads
-    "n_layers": 4,         # Number of layers
-    "drop_rate": 0.1,       # Dropout rate
-    "qkv_bias": False       # Query-Key-Value bias
-}
-
+cfg = GPT_CONFIGS["gpt-test"]
 
 class GPTmodel(nn.Module):
     def __init__(self, cfg):

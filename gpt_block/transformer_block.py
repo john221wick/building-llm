@@ -2,6 +2,7 @@ import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from attention_mechanism.MultiheadAttention import MultiHeadAttention
+from configuration.config import GPT_CONFIGS
 import torch.nn as nn
 import torch
 
@@ -75,19 +76,11 @@ class TransformerBlock(nn.Module):
 
 
 
-cfg = {
-    "vocab_size": 50257,    # Vocabulary size
-    "context_length": 1024, # Context length
-    "emb_dim": 768,         # Embedding dimension
-    "n_heads": 12,          # Number of attention heads
-    "n_layers": 12,         # Number of layers
-    "drop_rate": 0.1,       # Dropout rate
-    "qkv_bias": False       # Query-Key-Value bias
-}
+cfg = GPT_CONFIGS["gpt-test"]
 
 x = torch.rand(2, 4, 768)
-# block = TransformerBlock(cfg)
-# output = block(x)
+block = TransformerBlock(cfg)
+output = block(x)
 
-# print("input shape : ", x.shape)
-# print("output shape : ", output.shape)
+print("input shape : ", x.shape)
+print("output shape : ", output.shape)
