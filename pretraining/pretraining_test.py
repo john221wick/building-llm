@@ -6,7 +6,7 @@ from dataloader_v1 import create_dataloader_v1
 from utils import calc_loss_batch, calc_loss_loader
 import torch
 from configuration.config import GPT_CONFIGS
-
+import tiktoken
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 data_path = os.path.join(script_dir, '..', 'data', 'the-verdict.txt')
@@ -115,7 +115,7 @@ def generate_and_print_sample(model, tokenizer, device, start_context):
 
 
 optimizer = torch.optim.AdamW(model.parameters(), lr=0.0004, weight_decay=0.1)
-import tiktoken
+
 def text_to_token_ids(text, tokenizer):
     encoded = tokenizer.encode(text, allowed_special={'<|endoftext|>'})
     encoded_tensor = torch.tensor(encoded).unsqueeze(0)
@@ -157,3 +157,45 @@ train_losses, val_losses, tokens_seen = train_model_simple(
     num_epochs=num_epochs, eval_freq=5, eval_iter=5,
     start_context="Every effort moves you", tokenizer=tokenizer
 )
+
+def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
+
+    for _ in range(max_new_tokens):
+        idx_cond = idx[:, -context_size:]
+        with torch.no_grad():
+            logits = model(idx_cond)
+        logits = logits[:, -1, :]
+
+        # New: Filter logits with top_k sampling
+        if top_k is not None:
+            top_logits, _ = torch.topk(logits, top_k)
+            min_val = top_logits[:, -1]
+            logits = torch.where(logits < min_val, torch.tensor(float("-inf")).to(logits.device), logits)
+
+        # temperature scaling or otherwise same as before: get idx of the vocab entry with the highest logits value
+        if temperature > 0.0:
+            logits = logits / temperature
+            probs = torch.softmax(logits, dim=-1)
+            idx_next = torch.multinomial(probs, num_samples=1)
+
+        else:
+            idx_next = torch.argmax(logits, dim=-1, keepdim=True)
+
+        # if eos is encountered stop
+        if idx_next == eos_id:
+            break
+        # (batch_size, num_tokens+1)
+        idx = torch.cat((idx, idx_next), dim=1)
+
+    return idx
+
+token_ids = generate(
+    model=model,
+    idx=text_to_token_ids("Every effort moves you", tokenizer),
+    max_new_tokens=15,
+    context_size=GPT_CONFIG["context_length"],
+    top_k=25,
+    temperature=1.4
+)
+
+print("Output text:\n", token_ids_to_text(token_ids, tokenizer))
