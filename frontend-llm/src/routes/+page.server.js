@@ -13,6 +13,13 @@ export const actions = {
 		const message = formData.get('message');
 		const model = formData.get('model');
 
+		if (model == 'wick-model') {
+			return {
+				role: 'assistant',
+				content: 'My own model is not deployed yet.'
+			};
+		}
+
 		if (!message || typeof message !== 'string') {
 			return fail(400, { error: 'Message cannot be empty.' });
 		}
