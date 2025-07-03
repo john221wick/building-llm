@@ -14,11 +14,12 @@
 
 	// Model selection state
 	const models = [
-		{ id: 'llama3-8b-8192', name: 'Llama 3 8B' },
+		{ id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B' },
+		{ id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B' },
+		{ id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 17b Maverick instruct' },
 		{ id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'llama4 Scout 17b instruct' },
-		{ id: 'mixtral-8x7b-32768', name: 'Mixtral 8x7B' },
 		{ id: 'qwen-qwq-32b', name: 'Qwen 32b' },
-		{ id: 'deepseek-r1-distill-llama-70b', name: 'Deepseek R1 Distilled 70b' },
+		{ id: 'deepseek-r1-distill-llama-70b', name: 'Deepseek R1 Distilled llama-70b' },
 		{ id: 'gemma2-9b-it', name: 'Gemma 2 9B' },
 		{ id: 'wick-model', name: 'My Own Custom Model' }
 	];
