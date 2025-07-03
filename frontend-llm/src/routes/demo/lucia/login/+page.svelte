@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { enhance } from '$app/forms';
 
 	let { form } = $props();
@@ -30,4 +30,4 @@
 		>Register</button
 	>
 </form>
-<p style="color: red">{form?.message ?? ''}</p>
+<p style="color: red">{form?.message ?? ''}</p> -->
