@@ -14,13 +14,16 @@
 
 	// Model selection state
 	const models = [
-		{ id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B' },
-		{ id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B' },
-		{ id: 'meta-llama/llama-4-maverick-17b-128e-instruct', name: 'Llama 4 17b Maverick instruct' },
-		{ id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 17b Scout instruct' },
-		{ id: 'qwen-qwq-32b', name: 'Qwen 32b' },
-		{ id: 'deepseek-r1-distill-llama-70b', name: 'Deepseek R1 Distilled llama-70b' },
-		{ id: 'gemma2-9b-it', name: 'Gemma 2 9B' },
+		{ id: 'llama-3.1-8b-instant', name: 'Llama 3.1 8B Instant 128k' },
+		{ id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B Versatile 128k' },
+		{
+			id: 'meta-llama/llama-4-maverick-17b-128e-instruct',
+			name: 'Llama 4 Maverick (17Bx128E) 128k'
+		},
+		{ id: 'meta-llama/llama-4-scout-17b-16e-instruct', name: 'Llama 4 Scout (17Bx16E) 128k' },
+		{ id: 'qwen-qwq-32b', name: 'Qwen 32B 128k' },
+		{ id: 'deepseek-r1-distill-llama-70b', name: 'DeepSeek R1 Distill Llama 70B 128k' },
+		{ id: 'gemma2-9b-it', name: 'Gemma 2 9B 8k' },
 		{ id: 'wick-model', name: 'My Own Custom Model' }
 	];
 	let currentModel = $state('llama-3.1-8b-instant');
