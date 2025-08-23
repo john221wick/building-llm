@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { fly } from 'svelte/transition';
-
+	let showMobileMenu = $state(false);
 	let messages = $state([
 		{
 			role: 'assistant',
@@ -38,23 +38,28 @@
 </svelte:head>
 
 <div class="flex h-screen flex-col bg-white font-sans dark:bg-[#111111]">
+	<!-- replace the whole <header> block with this -->
+
 	<header
 		class="flex flex-shrink-0 items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6 dark:border-gray-800"
 	>
+		<!-- title -->
 		<h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Chat</h1>
 
-		<div class="flex items-center gap-4">
+		<!-- controls (always one row on every screen) -->
+		<div class="flex items-center gap-2 sm:gap-2">
+			<!-- model selector -->
 			<div class="relative">
 				<select
 					bind:value={currentModel}
-					class="appearance-none rounded-md border border-gray-300 bg-white py-1.5 pr-8 pl-3 text-sm text-gray-800 focus:ring-1 focus:ring-gray-400 focus:outline-none dark:border-gray-700 dark:bg-[#111111] dark:text-gray-200 dark:focus:ring-gray-600"
+					class="appearance-none rounded-md border border-gray-300 bg-white py-1.5 pr-7 pl-2 text-xs text-gray-800 focus:ring-1 focus:ring-gray-400 focus:outline-none sm:pr-8 sm:pl-3 sm:text-sm dark:border-gray-700 dark:bg-[#111111] dark:text-gray-200 dark:focus:ring-gray-600"
 				>
 					{#each models as model (model.id)}
 						<option value={model.id}>{model.name}</option>
 					{/each}
 				</select>
 				<div
-					class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
+					class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-gray-500 sm:px-2"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +74,8 @@
 					>
 				</div>
 			</div>
-			<!-- GitHub Icon -->
+
+			<!-- GitHub icon -->
 			<a
 				href="https://github.com/john221wick/building-llm"
 				target="_blank"
@@ -88,11 +94,11 @@
 				>
 					<path
 						d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-					></path>
+					/>
 				</svg>
 			</a>
 
-			<!-- Docs Icon (inline SVG, same style) -->
+			<!-- Docs icon -->
 			<a
 				href="https://github.com/john221wick/building-llm"
 				target="_blank"
@@ -118,7 +124,6 @@
 			</a>
 		</div>
 	</header>
-
 	<main bind:this={chatContainer} class="flex-1 overflow-y-auto p-4 pb-28 sm:px-6">
 		<div class="mx-auto max-w-3xl space-y-6">
 			{#each messages as message, i (message.content + i)}
