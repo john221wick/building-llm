@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms';
 	import { fly } from 'svelte/transition';
-	let showMobileMenu = $state(false);
+
 	let messages = $state([
 		{
 			role: 'assistant',
@@ -38,17 +38,12 @@
 </svelte:head>
 
 <div class="flex h-screen flex-col bg-white font-sans dark:bg-[#111111]">
-	<!-- replace the whole <header> block with this -->
-
 	<header
 		class="flex flex-shrink-0 items-center justify-between border-b border-gray-200 px-4 py-4 sm:px-6 dark:border-gray-800"
 	>
-		<!-- title -->
 		<h1 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Chat</h1>
 
-		<!-- controls (always one row on every screen) -->
 		<div class="flex items-center gap-2 sm:gap-2">
-			<!-- model selector -->
 			<div class="relative">
 				<select
 					bind:value={currentModel}
@@ -61,69 +56,28 @@
 				<div
 					class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-1.5 text-gray-500 sm:px-2"
 				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="12"
-						height="12"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"><path d="m6 9 6 6 6-6" /></svg
-					>
+					<img src="/dropdown.svg" alt="dropdown" width="12" height="12" />
 				</div>
 			</div>
 
-			<!-- GitHub icon -->
 			<a
 				href="https://github.com/john221wick/building-llm"
 				target="_blank"
-				class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+				class="scale-180 hover:text-gray-700"
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<path
-						d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-					/>
-				</svg>
+				<img src="/git.gif" alt="GitHub" width="20" height="20" />
 			</a>
 
-			<!-- Docs icon -->
 			<a
 				href="https://github.com/john221wick/building-llm"
 				target="_blank"
 				class="text-gray-500 transition-colors hover:text-gray-700 dark:text-white dark:hover:text-gray-300"
 			>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="20"
-					height="20"
-					viewBox="0 0 24 24"
-					fill="none"
-					stroke="currentColor"
-					stroke-width="2"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-				>
-					<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-					<polyline points="14 2 14 8 20 8" />
-					<line x1="16" y1="13" x2="8" y2="13" />
-					<line x1="16" y1="17" x2="8" y2="17" />
-					<line x1="10" y1="9" x2="8" y2="9" />
-				</svg>
+				<img src="/docs.png" class="fill-amber-50" alt="Docs" width="20" height="20" />
 			</a>
 		</div>
 	</header>
+
 	<main bind:this={chatContainer} class="flex-1 overflow-y-auto p-4 pb-28 sm:px-6">
 		<div class="mx-auto max-w-3xl space-y-6">
 			{#each messages as message, i (message.content + i)}
@@ -132,37 +86,9 @@
 						class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
 					>
 						{#if message.role === 'user'}
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle
-									cx="12"
-									cy="7"
-									r="4"
-								/></svg
-							>
+							<img src="/user.png" alt="User" width="14" height="14" />
 						{:else}
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="14"
-								height="14"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								><path d="M12 8V4H8" /><rect width="16" height="12" x="4" y="8" rx="2" /><path
-									d="M2 14h2"
-								/><path d="M20 14h2" /><path d="M15 13v2" /><path d="M9 13v2" /></svg
-							>
+							<img src="/chat.png" alt="Assistant" width="14" height="14" />
 						{/if}
 					</div>
 					<div class="flex-1 pt-0.5">
@@ -181,20 +107,7 @@
 					<div
 						class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="14"
-							height="14"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							><path d="M12 8V4H8" /><rect width="16" height="12" x="4" y="8" rx="2" /><path
-								d="M2 14h2"
-							/><path d="M20 14h2" /><path d="M15 13v2" /><path d="M9 13v2" /></svg
-						>
+						<img src="/loading.gif" alt="Assistant Loading" width="14" height="14" />
 					</div>
 					<div class="flex-1 pt-1">
 						<div class="flex h-8 items-center">
@@ -262,17 +175,7 @@
 						disabled={loading || !inputText.trim()}
 						aria-label="Send message"
 					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 24 24"
-							fill="none"
-							stroke="currentColor"
-							stroke-width="2"
-							stroke-linecap="round"
-							stroke-linejoin="round"><path d="m5 12 7-7 7 7" /><path d="M12 19V5" /></svg
-						>
+						<img src="/send.png" alt="Send" width="16" height="16" />
 					</button>
 				</div>
 			</form>
